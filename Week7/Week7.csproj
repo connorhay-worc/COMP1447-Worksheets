@@ -39,6 +39,15 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Example01a.cs" />
+        <Compile Include="Example02.cs" />
+        <Compile Include="Example03.cs" />
+        <Compile Include="Example04.cs" />
+        <Compile Include="Example05.cs" />
+        <Compile Include="Example06.cs" />
+        <Compile Include="Example07.cs" />
+        <Compile Include="Example08.cs" />
+        <Compile Include="Example09.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
