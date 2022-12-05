@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Week10
 {
@@ -12,7 +13,7 @@ namespace Week10
             AddResults();
             PrintResults();
             CalculateScores();
-            CalculateWinner();
+            CalculateWinner2();
             
             void AddTeams()
             {
@@ -45,23 +46,35 @@ namespace Week10
                     Console.WriteLine("Team {0}: ", teamsArray[i].name);
                     for (int j = 0; j < teamsArray[i].results.Length; j++)
                     {
-                        Console.Write("Score {0} (w/d/l): ", j + 1);
-                        string tempInput = Console.ReadLine();
-                        string tempResult = "";
-                        if (tempInput == "w")
+                        bool correctOutput = false;
+
+                        while (!correctOutput)
                         {
-                            tempResult = "Win";
+                            Console.Write("Score {0} (w/d/l): ", j + 1);
+                            string tempInput = Console.ReadLine();
+                            string tempResult = "";
+    
+                            switch (tempInput)
+                            {
+                                case "w":
+                                    tempResult = "Win";
+                                    correctOutput = true;
+                                    break;
+                                case "d":
+                                    tempResult = "Draw";
+                                    correctOutput = true;
+                                    break;
+                                case "l":
+                                    tempResult = "Loss";
+                                    correctOutput = true;
+                                    break;
+                                default:
+                                    Console.WriteLine("Input is invalid. Please try again.");
+                                    break;
+                            }
+                            
+                            teamsArray[i].results[j] = tempResult;
                         }
-                        else if (tempInput == "d")
-                        {
-                            tempResult = "Draw";
-                        }
-                        else if (tempInput == "l")
-                        {
-                            tempResult = "Loss";
-                        }
-                        
-                        teamsArray[i].results[j] = tempResult;
                     }
                 }
                 Console.WriteLine();
@@ -115,8 +128,36 @@ namespace Week10
                 }
                 Console.WriteLine("The winning team is {0} with a score of {1}", winningTeam.name, winningTeam.score);
             }
-        }
 
-        
+            void CalculateWinner2()
+            {
+                int highestScore = -1;
+                List<Team> winningTeams = new List<Team>();
+                foreach (Team team in teamsArray)
+                {
+                    if (team.score > highestScore)
+                    {
+                        highestScore = team.score;
+                        winningTeams = new List<Team>();
+                        winningTeams.Add(team);
+                    } else if (team.score == highestScore)
+                    {
+                        winningTeams.Add(team);
+                    }
+                }
+
+                if (winningTeams.Count == 1)
+                {
+                    Console.WriteLine("The winning team is {0} with a score of {1}", winningTeams[0].name, winningTeams[0].score);
+                } else if (winningTeams.Count >= 2)
+                {
+                    Console.WriteLine("We have a draw - the winning teams and their score are:");
+                    foreach (Team team in winningTeams)
+                    {
+                        Console.WriteLine("{0}: {1}", team.name, team.score);
+                    }
+                }
+            }
+        }
     }
 }
